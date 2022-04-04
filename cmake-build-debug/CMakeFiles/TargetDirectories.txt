@@ -1,0 +1,3 @@
+D:/Programming vol.3/C++/Image Proccesing/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Programming vol.3/C++/Image Proccesing/cmake-build-debug/CMakeFiles/Image_Proccesing.dir
+D:/Programming vol.3/C++/Image Proccesing/cmake-build-debug/CMakeFiles/rebuild_cache.dir
