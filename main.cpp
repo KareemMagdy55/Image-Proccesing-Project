@@ -5,6 +5,17 @@
 
 unsigned char image[SIZE][SIZE];
 
+void loadImage ();
+void filterChoice();
+void saveImage ();
+
+int main() {
+    loadImage();
+    filterChoice();
+    saveImage();
+}
+
+
 void loadImage () {
     char imageFileName[100];
 
@@ -16,8 +27,6 @@ void loadImage () {
     strcat (imageFileName, ".bmp");
     readGSBMP(imageFileName, image);
 }
-
-
 
 
 
@@ -47,6 +56,7 @@ void BW_filter(){
     }
 
 }
+
 void invertFilter(){
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
@@ -87,7 +97,6 @@ void filterChoice(){
 
 }
 
-
 void saveImage () {
     char imageFileName[100];
 
@@ -102,8 +111,3 @@ void saveImage () {
 
 
 
-int main() {
-    loadImage();
-    filterChoice();
-    saveImage();
-}
