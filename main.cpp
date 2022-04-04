@@ -18,9 +18,6 @@ void loadImage () {
 }
 
 
-
-
-
 void BW_filter(){
     int counter = 0 ;
     int grayAvg;
