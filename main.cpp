@@ -47,6 +47,15 @@ void BW_filter(){
     }
 
 }
+void invertFilter(){
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+
+            image[i][j] = 255 - image[i][j] ;
+        }
+    }
+
+}
 
 /* Put your filter function here
  * then put it in (filterChoice) message
@@ -56,7 +65,11 @@ void BW_filter(){
 
 void filterChoice(){
     int filterChoice = 0 ;
-    cout << "Please Choose a filter to apply it to your image\nPress 1 for Black & White filter \nPress 2 for ... filter\nPress 0 to Exit ";
+    cout << "Please Choose a filter to apply it to your image"
+            "\nPress 1 for Black & White filter "
+            "\nPress 2 for Invert image filter"
+            "\nPress 0 to Exit ";
+
     cin >> filterChoice;
     switch (filterChoice) {
         case 0 :
@@ -64,6 +77,9 @@ void filterChoice(){
             break;
         case 1:
             BW_filter();
+            break;
+        case 2 :
+            invertFilter();
             break;
         default:
             break;
@@ -90,6 +106,4 @@ int main() {
     loadImage();
     filterChoice();
     saveImage();
-
-
 }
