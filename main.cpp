@@ -29,12 +29,43 @@ void loadImage () {
 }
 
 
+void rotateImage(){
+    unsigned char newImage[SIZE][SIZE];
+    int rotationChoice = 1 ;
+    cout << "Press 1 for 90 degree rotation\nPress 2 for 180 degree rotation\nPress 3 for 270 degree rotation";
+    cin >> rotationChoice;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            switch(rotationChoice) {
+                case 1 :
+                    // 90 degree rotation
+                    newImage[i][j] = image[SIZE - 1 - j][ i];
+                    break;
+                case 2 :
+                    // 180 degree rotation
+                    newImage[i][j] = image[SIZE - 1 - i][SIZE - 1 - j];
+                    break ;
+                case 3 :
+                    // 270 degree rotation
+                    newImage[i][j] = image[j][SIZE - 1 - i] ;
+                    break;
+                default :
+                    break;
+            }
+        }
+    }
+    for (int i = 0; i < SIZE; i++) {
+         for (int j = 0; j < SIZE; ++j) {
+            image[i][j] = newImage[i][j] ;
+      }
+    }
+}
 
 void BW_filter(){
     int counter = 0 ;
     int grayAvg;
 
-
+    // calculate gray color average
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
 
@@ -44,7 +75,8 @@ void BW_filter(){
 
     grayAvg = counter / (SIZE * SIZE) ;
 
-
+// every color above average will be White (  255 )
+// every color under average will be Black (   0  )
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             if (image[i][j] > grayAvg){
@@ -58,6 +90,8 @@ void BW_filter(){
 }
 
 void invertFilter(){
+    // every gray pixel is turned to opposite level of brightness  (255 – pixel value)
+
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
 
@@ -75,10 +109,14 @@ void invertFilter(){
 
 void filterChoice(){
     int filterChoice = 0 ;
-    cout << "Please Choose a filter to apply it to your image"
+    cout <<  "\n-----------------------------------\n"
+            "Please Choose a filter to apply it to your image\n"
             "\nPress 1 for Black & White filter "
             "\nPress 2 for Invert image filter"
-            "\nPress 0 to Exit ";
+            "\nPress 3 to rotate image filter"
+            "\nPress 0 to Exit"
+            "\n-----------------------------------\n";
+
 
     cin >> filterChoice;
     switch (filterChoice) {
@@ -91,6 +129,8 @@ void filterChoice(){
         case 2 :
             invertFilter();
             break;
+        case 3 :
+            rotateImage();
         default:
             break;
     }
@@ -101,6 +141,7 @@ void saveImage () {
     char imageFileName[100];
 
     // Get gray scale image target file name
+    cout << "-----------------------------------\n";
     cout << "Enter the target image file name: ";
     cin >> imageFileName;
 
