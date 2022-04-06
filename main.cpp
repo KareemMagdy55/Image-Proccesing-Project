@@ -1,11 +1,15 @@
 /*
         FCI – Programming 1 – 2022 - Assignment 3
+
         Program Name: xxxxxx.cpp
         Last Modification Date: xx/xx/xxxx
-        Author1: Abdullah Ibrahim  ID: 20210590
-        Author2: xxxxx xxxxx
-        Author3: xxxxx xxxxx
+
+        Author1 : Abdullah Ibrahim  ID : 20210590
+        Author2 : Kareem Magdy      ID : 20211071
+        Author3 : Mohammed Reyad    ID : 20211074
+
         Teaching Assistant: Eng. Afaf Abdelmonem
+
         Purpose:..........
 */
 
@@ -29,26 +33,25 @@ int main() {
 
 void loadImage () {
     char imageFileName[100];
+    bool imgValidation = false;
 
-    // Get gray scale image file name
-    cout << "Enter the source image file name:";
-    cin >> imageFileName;
+    while (!imgValidation) {
+        // Get gray scale image file name
+        cout << "Enter the source image file name:";
+        cin >> imageFileName;
 
-    // Add to it .bmp extension and load image
-    strcat(imageFileName, ".bmp");
-    int imgValidation = readGSBMP(imageFileName, image);
-    while (true) {
-        if (imgValidation == 1) { //if the Image is not valid, call the function "loadImage"() again
-            cout << "\nPlease try again..." << endl;
-            loadImage();
-            break;
+        // Add to it .bmp extension and load image
+        strcat(imageFileName, ".bmp");
+
+
+        if (! readGSBMP(imageFileName, image)) {
+            imgValidation = true;
         }
-        else
-            break;
-
+        else { //if the Image is not valid, reRun loadImage()
+            cout << "\nImage not found, Please try again.\n";
+        }
     }
 }
-
 void rotateImage(){
     unsigned char newImage[SIZE][SIZE];
     int rotationChoice = 1 ;
@@ -134,7 +137,7 @@ void flipImage(){
         }
     }
 
-    cout << "\nFlip (H)orizontally or (V)ertically ?\n";
+    cout << "\nFlip (H) horizontally or (V) vertically ?\n";
     cin >> type_of_flip; // Take the type of the flip from user
     while (true) {
         if (type_of_flip == "h"||type_of_flip == "H") {
@@ -176,45 +179,51 @@ void flipImage(){
   */
 
 
-void filterChoice() {
-    string filterNum;
-    cout << "\n-----------------------------------\n"
-            "Please Choose a filter to apply it to your image\n"
-            "\nPress 1 for Black & White filter "
-            "\nPress 2 for Invert image filter"
-            "\nPress 4 to flip image filter"
-            "\nPress 6 to rotate image filter"
-            "\nPress 0 to Exit"
-            "\n-----------------------------------\n";
+void filterChoice(){
+   bool validInput = false ;
+
+   do {
+       int filterChoice = 0;
+       cout << "\n-----------------------------------\n"
+               "Please Choose a filter to apply it to your image\n"
+               "\nPress 1 for Black & White filter "
+               "\nPress 2 for Invert image filter"
+               "\nPress 3 to rotate image filter"
+               "\nPress 4 to flip image filter"
+               "\nPress 0 to Exit"
+               "\n-----------------------------------\n";
 
 
-    cin >> filterNum;
-    while (true) {
-        if (filterNum == "0")
-            exit(0);
-        else if (filterNum == "1")
-            BW_filter();
-        else if (filterNum == "2")
-            invertFilter();
-        else if (filterNum == "3");
-        else if (filterNum == "4")
-            flipImage();
-        else if (filterNum == "5");
-        else if (filterNum == "6")
-            rotateImage();
-        else if (filterNum == "7");
-        else if (filterNum == "8");
-        else if (filterNum == "9");
-        else if (filterNum == "a" || filterNum == "A");
-        else if (filterNum == "b" || filterNum == "B");
-        else if (filterNum == "c" || filterNum == "C");
-        else {
-            cout << "invalid input! please enter a valid filter number..." << endl;
-            cin >> filterNum;
-            continue;
-        }
-        break;
-    }
+       cin >> filterChoice;
+
+       switch (filterChoice) {
+           case 0 :
+               exit(0);
+           case 1:
+               BW_filter();
+               validInput = true;
+               break;
+           case 2 :
+               invertFilter();
+               validInput = true;
+               break;
+           case 3 :
+               rotateImage();
+               validInput = true;
+               break;
+           case 4 :
+               flipImage();
+               validInput = true;
+               break;
+           default:
+               cout << "\nInvalid input, Please try again\n";
+               break;
+       }
+   }while (! validInput);
+
+
+
+
 }
 
 void saveImage () {
