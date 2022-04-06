@@ -196,29 +196,32 @@ void filterChoice(){
 
        cin >> filterChoice;
 
-       switch (filterChoice) {
-           case 0 :
-               exit(0);
-           case 1:
-               BW_filter();
-               validInput = true;
-               break;
-           case 2 :
-               invertFilter();
-               validInput = true;
-               break;
-           case 3 :
-               rotateImage();
-               validInput = true;
-               break;
-           case 4 :
-               flipImage();
-               validInput = true;
-               break;
-           default:
-               cout << "\nInvalid input, Please try again\n";
-               break;
-       }
+        if ( to_string(filterChoice).length() == 1) {
+
+            switch (filterChoice) {
+                case 0 :
+                    exit(0);
+                case 1:
+                    BW_filter();
+                    validInput = true;
+                    break;
+                case 2 :
+                    invertFilter();
+                    validInput = true;
+                    break;
+                case 3 :
+                    rotateImage();
+                    validInput = true;
+                    break;
+                case 4 :
+                    flipImage();
+                    validInput = true;
+                    break;
+                default:
+                    cout << "\nInvalid input, Please try again\n";
+                    break;
+            }
+        }
    }while (! validInput);
 
 
