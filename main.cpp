@@ -26,8 +26,9 @@ void saveImage ();
 
 int main() {
     loadImage();
-    filterChoice();
-    saveImage();
+    while (true) {
+        filterChoice();
+    }
 }
 
 
@@ -190,6 +191,7 @@ void filterChoice(){
                "\nPress 2 for Invert image filter"
                "\nPress 3 to rotate image filter"
                "\nPress 4 to flip image filter"
+               "\nPress 5 to save the image"
                "\nPress 0 to Exit"
                "\n-----------------------------------\n";
 
@@ -217,8 +219,12 @@ void filterChoice(){
                     flipImage();
                     validInput = true;
                     break;
+                case 5 :
+                    saveImage();
+                    validInput = true;
+                    break;
                 default:
-                    cout << "\nInvalid input, Please try again\n";
+                    cout << "\nInvalid input, Please try again...\n";
                     break;
             }
         }
