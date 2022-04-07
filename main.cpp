@@ -17,6 +17,7 @@
 #include <cstring>
 #include "bmplib.cpp"
 #include "bmplib.h"
+#include<cmath>
 
 unsigned char image[SIZE][SIZE];
 
@@ -173,6 +174,52 @@ void flipImage(){
 
 
 }
+void darken_or_lighten() {
+    unsigned char image2[SIZE][SIZE];
+    int choice ;
+    cout <<"enter 0 to darken or 1 to lighten : ";
+    cin >> choice;
+    if (choice == 0 ){
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                image2[i][j] = (image[i][j] / 2 );
+            }
+        }
+    }
+    else if (choice==1){
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                image2[i][j] =  (pow(image[i][j],.8)-120) ;
+            }
+        }
+    }
+    for (int i =0 ;i<SIZE;i++){
+        for (int j=0 ; j< SIZE;j++){
+            image[i][j]=image2[i][j];
+        }
+    }
+
+}
+void merge() {
+    unsigned char image2[SIZE][SIZE];
+    unsigned char image3 [SIZE][SIZE];
+    char image2FileName[100];
+    cout << "Enter the source image2 file name:";
+    cin >> image2FileName;
+    strcat (image2FileName, ".bmp");
+    readGSBMP(image2FileName, image2);
+
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            image3[i][j] = (image[i][j] + image2[i][j]) / 2;
+        }
+    }
+    for (int i =0 ;i<SIZE;i++){
+        for (int j=0 ; j< SIZE;j++){
+            image[i][j]=image3[i][j];
+        }
+    }
+}
 
 /* Put your filter function here
  * then put it in (filterChoice) message
@@ -191,7 +238,9 @@ void filterChoice(){
                "\nPress 2 for Invert image filter"
                "\nPress 3 to rotate image filter"
                "\nPress 4 to flip image filter"
-               "\nPress 5 to save the image"
+               "\nPress 5 to darken or lighten filter"
+               "\nPress 6 to merge filter"
+               "\nPress 7 to save the image"
                "\nPress 0 to Exit"
                "\n-----------------------------------\n";
 
@@ -220,6 +269,14 @@ void filterChoice(){
                     validInput = true;
                     break;
                 case 5 :
+                    void darken_or_lighten() ;
+                    validInput = true;
+                    break;
+                case 6 :
+                    merge();
+                    validInput = true;
+                    break;
+                case 7 :
                     saveImage();
                     validInput = true;
                     break;
