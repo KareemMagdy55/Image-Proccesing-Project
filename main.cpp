@@ -168,7 +168,115 @@ void enlargeImage() {
 
 
 }
+bool isShuffleValid(string& word){
+    for(char& c : word){
+        if (c != '1' && c!= '2' && c!='3' && c!='4') {
+            return false;
+        }
+    }
+    return true;
 
+}
+void shuffleImage(){
+    unsigned char shuffledImage[SIZE][SIZE];
+
+    string userShuffle ;
+    cout << "Please enter your shuffle order:";
+    cin >> userShuffle;
+
+    while (!isShuffleValid(userShuffle) && userShuffle.length() != 4){
+        cout << "\nInvalid shuffle order, please re-enter a valid one :\n";
+
+    }
+
+
+    for (int k = 0; k < 4; ++k) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                switch(k){
+                    case 0 :
+                        switch ( userShuffle[k]) {
+                            case '1':
+                                shuffledImage[i / 2][j / 2] = image[i / 2][j / 2];
+                                break;
+                            case '2':
+                                shuffledImage[i / 2][j / 2] = image[i / 2][SIZE / 2 + j / 2];
+                                break;
+                            case '3' :
+                                shuffledImage[i / 2][j / 2]= image[SIZE / 2 + i / 2][j / 2];
+                                break;
+                            case '4' :
+                                shuffledImage[i / 2][j / 2] = image[SIZE / 2 + i / 2][SIZE / 2 + j / 2];
+                                break;
+                        }
+                        break;
+
+                    case 1 :
+                        switch (userShuffle[k]) {
+                            case '1':
+                                shuffledImage[i / 2][SIZE / 2 + j / 2] = image[i / 2][j / 2];
+                                break;
+                            case '2':
+                                shuffledImage[i / 2][SIZE / 2 + j / 2] = image[i / 2][SIZE / 2 + j / 2];
+                                break;
+                            case '3' :
+                                shuffledImage[i / 2][SIZE / 2 + j / 2]= image[SIZE / 2 + i / 2][j / 2];
+                                break;
+                            case '4' :
+                                shuffledImage[i / 2][SIZE / 2 + j / 2] = image[SIZE / 2 + i / 2][SIZE / 2 + j / 2];
+                                break;
+                        }
+                        break;
+                    case 2 :
+                        switch ( userShuffle[k]) {
+                            case '1':
+                                shuffledImage[SIZE / 2 + i / 2][j / 2] = image[i / 2][j / 2];
+                                break;
+                            case '2':
+                                shuffledImage[SIZE / 2 + i / 2][j / 2] = image[i / 2][SIZE / 2 + j / 2];
+                                break;
+                            case '3' :
+                                shuffledImage[SIZE / 2 + i / 2][j / 2]= image[SIZE / 2 + i / 2][j / 2];
+                                break;
+                            case '4' :
+                                shuffledImage[SIZE / 2 + i / 2][j / 2] = image[SIZE / 2 + i / 2][SIZE / 2 + j / 2];
+                                break;
+                        }
+                        break;
+                    case 3 :
+                        switch ( userShuffle[k]) {
+                            case '1':
+                                shuffledImage[SIZE / 2 + i / 2][SIZE / 2 + j / 2] = image[i / 2][j / 2];
+                                break;
+                            case '2':
+                                shuffledImage[SIZE / 2 + i / 2][SIZE / 2 + j / 2] = image[i / 2][SIZE / 2 + j / 2];
+                                break;
+                            case '3' :
+                                shuffledImage[SIZE / 2 + i / 2][SIZE / 2 + j / 2]= image[SIZE / 2 + i / 2][j / 2];
+                                break;
+                            case '4' :
+                                shuffledImage[SIZE / 2 + i / 2][SIZE / 2 + j / 2] = image[SIZE / 2 + i / 2][SIZE / 2 + j / 2];
+                                break;
+                        }
+                        break;
+
+
+
+
+                }
+            }
+        }
+
+    }
+
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            image[i][j] = shuffledImage[i][j];
+        }
+    }
+
+
+}
 
 // Filter to flip the image Vertically or Horizontally
 void flipImage(){
@@ -285,14 +393,15 @@ void filterChoice(){
                "\nPress 5 to darken or lighten filter"
                "\nPress 6 to merge filter"
                "\nPress 7 to enlarge the image"
-               "\nPress 8 to save the image"
+               "\nPress 8 to shuffle the image"
+               "\nPress 9 to save the image"
                "\nPress 0 to Exit"
                "\n-----------------------------------\n";
 
 
-       cin >> filterChoice;
+        cin >> filterChoice;
 
-        if (filterChoice >= 0 && filterChoice <= 8 ) {
+        if (filterChoice >= 0 && filterChoice <= 9 ) {
 
             switch (filterChoice) {
                 case 0 :
@@ -326,6 +435,10 @@ void filterChoice(){
                     validInput = true;
                     break;
                 case 8 :
+                    shuffleImage();
+                    validInput = true;
+                    break;
+                case 9 :
                     saveImage();
                     validInput = true;
                     break;
