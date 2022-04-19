@@ -129,10 +129,8 @@ void enlargeImage() {
     unsigned char enlargedImage[SIZE][SIZE];
 
     int enlargeChoice = 1 ;
-    cout << "Press 1 to enlarge first quarter"
-            "\nPress 2 to enlarge second quarter"
-            "\nPress 3 to enlarge third quarter"
-            "\nPress 4 to enlarge Fourth quarter";
+    cout << "\nWhich quarter to enlarge 1, 2, 3 or 4?\n";
+
 
     cin >> enlargeChoice;
     for (int i = 0; i < SIZE; i++) {
