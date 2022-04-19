@@ -125,6 +125,50 @@ void invertFilter(){
     }
 
 }
+void enlargeImage() {
+    unsigned char enlargedImage[SIZE][SIZE];
+
+    int enlargeChoice = 1 ;
+    cout << "Press 1 to enlarge first quarter"
+            "\nPress 2 to enlarge second quarter"
+            "\nPress 3 to enlarge third quarter"
+            "\nPress 4 to enlarge Fourth quarter";
+
+    cin >> enlargeChoice;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            switch(enlargeChoice) {
+                case 1 :
+                    // first quarter
+                    enlargedImage[i][j] = image[i / 2][j / 2];
+                    break;
+                case 2 :
+                    // second quarter
+                    enlargedImage[i][j] = image[i / 2][SIZE / 2 + j / 2];
+                    break ;
+                case 3 :
+                    // third quarter
+                    enlargedImage[i][j] = image[SIZE / 2 + i / 2][j / 2];
+                    break;
+                case 4 :
+                    // Fourth quarter
+                    enlargedImage[i][j] = image[SIZE / 2 + i / 2][SIZE / 2 + j / 2];
+                    break;
+                default :
+                    break;
+            }
+        }
+    }
+
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            image[i][j] = enlargedImage[i][j];
+        }
+    }
+
+
+}
+
 
 // Filter to flip the image Vertically or Horizontally
 void flipImage(){
@@ -240,14 +284,15 @@ void filterChoice(){
                "\nPress 4 to flip image filter"
                "\nPress 5 to darken or lighten filter"
                "\nPress 6 to merge filter"
-               "\nPress 7 to save the image"
+               "\nPress 7 to enlarge the image"
+               "\nPress 8 to save the image"
                "\nPress 0 to Exit"
                "\n-----------------------------------\n";
 
 
        cin >> filterChoice;
 
-        if ( to_string(filterChoice).length() == 1) {
+        if (filterChoice >= 0 && filterChoice <= 8 ) {
 
             switch (filterChoice) {
                 case 0 :
@@ -269,7 +314,7 @@ void filterChoice(){
                     validInput = true;
                     break;
                 case 5 :
-                    void darken_or_lighten() ;
+                    darken_or_lighten() ;
                     validInput = true;
                     break;
                 case 6 :
@@ -277,6 +322,10 @@ void filterChoice(){
                     validInput = true;
                     break;
                 case 7 :
+                    enlargeImage();
+                    validInput = true;
+                    break;
+                case 8 :
                     saveImage();
                     validInput = true;
                     break;
