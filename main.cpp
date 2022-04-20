@@ -371,6 +371,22 @@ void merge() {
     }
 }
 
+void blurfilter(){
+    long long avg=0;
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            for (int k = i; k < i+7; k++) {
+                for (int l = j; l < j+7; l++) {
+                    avg+=(image[k][l]);
+                }
+            }
+            avg=avg/49;
+            image[i][j]=avg;
+            avg=0;
+        }
+    }
+}
+
 /* Put your filter function here
  * then put it in (filterChoice) message
  * then put it in (filterChoice) switch case
@@ -392,14 +408,15 @@ void filterChoice(){
                "\nPress 6 to merge filter"
                "\nPress 7 to enlarge the image"
                "\nPress 8 to shuffle the image"
-               "\nPress 9 to save the image"
+                "\nPress to blur the image"
+               "\nPress 10 to save the image"
                "\nPress 0 to Exit"
                "\n-----------------------------------\n";
 
 
         cin >> filterChoice;
 
-        if (filterChoice >= 0 && filterChoice <= 9 ) {
+        if (filterChoice >= 0 && filterChoice <= 10 ) {
 
             switch (filterChoice) {
                 case 0 :
@@ -437,6 +454,10 @@ void filterChoice(){
                     validInput = true;
                     break;
                 case 9 :
+                    blurfilter();
+                    validInput = true;
+                    break;            
+                case 10 :
                     saveImage();
                     validInput = true;
                     break;
