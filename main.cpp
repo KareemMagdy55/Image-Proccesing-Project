@@ -387,6 +387,52 @@ void blurfilter(){
     }
 }
 
+void shrink () {
+    unsigned char image2[SIZE][SIZE];
+    int choice ;
+    cout <<"for 1/2 shrink photo press 1 \n";
+    cout <<"for 1/3 shrink photo press 2 \n";
+    cout <<"for 1/4 shrink photo press 3 \n";
+    cin >> choice;
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            image2[i][j]=255;
+        }
+    }
+    if (choice == 1){
+        for (int i = 0; i < SIZE; i+=2) {
+            for (int j = 0; j < SIZE; j+=2) {
+                image2[i / 2][j / 2] =  image[i][j];
+            }
+        }
+
+    }
+
+    else if (choice == 2){
+        for (int i = 0; i < SIZE; i+=3) {
+            for (int j = 0; j < SIZE; j+=3) {
+                image2[i / 3][j / 3] =  image[i][j];
+            }
+        }
+
+    }
+    else if (choice == 3){
+        for (int i = 0; i < SIZE; i+=4) {
+            for (int j = 0; j < SIZE; j+=4) {
+                image2[i / 4][j /4 ] =  image[i][j];
+            }
+        }
+
+    }
+     for (int i =0 ;i<SIZE;i++){
+        for (int j=0 ; j< SIZE;j++){
+            image[i][j]=image2[i][j];
+        }
+    }
+
+
+}
+
 /* Put your filter function here
  * then put it in (filterChoice) message
  * then put it in (filterChoice) switch case
@@ -408,15 +454,16 @@ void filterChoice(){
                "\nPress 6 to merge filter"
                "\nPress 7 to enlarge the image"
                "\nPress 8 to shuffle the image"
-                "\nPress to blur the image"
-               "\nPress 10 to save the image"
+               "\nPress 9 to blur the image"
+               "\nPress 10 to shrink the image"
+               "\nPress 11 to save the image"
                "\nPress 0 to Exit"
                "\n-----------------------------------\n";
 
 
         cin >> filterChoice;
 
-        if (filterChoice >= 0 && filterChoice <= 10 ) {
+        if (filterChoice >= 0 && filterChoice <= 11 ) {
 
             switch (filterChoice) {
                 case 0 :
@@ -456,8 +503,12 @@ void filterChoice(){
                 case 9 :
                     blurfilter();
                     validInput = true;
-                    break;            
+                    break;
                 case 10 :
+                    shrink();
+                    validInput = true;
+                    break;            
+                case 11 :
                     saveImage();
                     validInput = true;
                     break;
