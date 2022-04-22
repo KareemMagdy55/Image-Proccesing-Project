@@ -320,10 +320,81 @@ void flipImage(){
         }
     }
 
+}
 
+void detect_edges(){
+    BW_filter();
+    unsigned char clone[SIZE][SIZE]; //2D array that has the same size as the image
 
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            clone[i][j] = image[i][j]; //copying the image pixels values into "clone" 2D array
+        }
+    }
+
+    for (int i = 1; i < 255; i++) {
+        for (int j = 1; j < 255; j++) {
+            if (clone[i-1][j-1]==0 and clone[i-1][j]==0 and clone[i-1][j+1]==0
+            and clone[i][j-1]==0 and clone[i][j+1]==0
+            and clone[i+1][j-1]==0 and clone[i+1][j]==0 and clone[i+1][j+1]==0){
+                image[i][j] = 255;
+            }
+        }
+    }
 
 }
+
+void mirror(){
+
+    string type_of_mirror;
+    cout<< "\nPlease Choose type of mirror to apply to your image\n"
+        << "\nPress 1 for Left Part Mirror "
+        << "\nPress 2 for Right Part Mirror"
+        << "\nPress 3 for Upper Part Mirror"
+        << "\nPress 4 for Lower Part Mirror" << endl;
+    cin >> type_of_mirror;
+
+    while (true) {
+        if (type_of_mirror == "1") {
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 0; j < 128; j++) {
+                    image[i][255-j] = image[i][j];
+                }
+            }
+            break;
+        }
+        else if (type_of_mirror == "2"){
+            for (int i = 0; i < SIZE; i++) {
+                for (int j = 128; j < 256; j++) {
+                    image[i][255-j] = image[i][j];
+                }
+            }
+            break;
+        }
+        else if (type_of_mirror == "3"){
+            for (int i = 0; i < 128; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    image[255-i][j] = image[i][j];
+                }
+            }
+            break;
+        }
+        else if (type_of_mirror == "4"){
+            for (int i = 128; i < 256; i++) {
+                for (int j = 0; j < SIZE; j++) {
+                    image[255-i][j] = image[i][j];
+                }
+            }
+            break;
+        }
+        else{
+            cout << "\n invalid input... please try again" << endl;
+            cin >> type_of_mirror;
+        }
+    }
+}
+
+
 void darken_or_lighten() {
     unsigned char image2[SIZE][SIZE];
     int choice ;
@@ -456,14 +527,16 @@ void filterChoice(){
                "\nPress 8 to shuffle the image"
                "\nPress 9 to blur the image"
                "\nPress 10 to shrink the image"
-               "\nPress 11 to save the image"
+               "\nPress 11 to detect image edges"
+               "\nPress 12 to mirror image"
+               "\nPress 13 to save the image"
                "\nPress 0 to Exit"
                "\n-----------------------------------\n";
 
 
         cin >> filterChoice;
 
-        if (filterChoice >= 0 && filterChoice <= 11 ) {
+        if (filterChoice >= 0 && filterChoice <= 13) {
 
             switch (filterChoice) {
                 case 0 :
@@ -507,8 +580,16 @@ void filterChoice(){
                 case 10 :
                     shrink();
                     validInput = true;
-                    break;            
+                    break;
                 case 11 :
+                    detect_edges();
+                    validInput = true;
+                    break;
+                case 12 :
+                    mirror();
+                    validInput = true;
+                    break;
+                case 13 :
                     saveImage();
                     validInput = true;
                     break;

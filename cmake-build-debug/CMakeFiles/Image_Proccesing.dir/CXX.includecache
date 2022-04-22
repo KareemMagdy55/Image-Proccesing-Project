@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project/bmplib.cpp
+C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project2/bmplib.cpp
 stdio.h
 -
 iostream
@@ -14,17 +14,19 @@ iostream
 cstdlib
 -
 bmplib.h
-C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project/bmplib.h
+C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project2/bmplib.h
 
-C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project/bmplib.h
+C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project2/bmplib.h
 
-C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project/main.cpp
+C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project2/main.cpp
 iostream
 -
 cstring
 -
 bmplib.cpp
-C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project/bmplib.cpp
+C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project2/bmplib.cpp
 bmplib.h
-C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project/bmplib.h
+C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project2/bmplib.h
+cmath
+-
 
