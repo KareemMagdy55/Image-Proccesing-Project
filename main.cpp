@@ -148,6 +148,7 @@ void invertFilter(){
 
 }
 void enlargeImage() {
+    // The Enlarge filter lets you extract one of the four picture quadrants into a single 256 * 256 image.
     unsigned char enlargedImage[SIZE][SIZE];
 
     int enlargeChoice = 1 ;
@@ -198,14 +199,17 @@ bool isShuffleValid(string& word){
 
 }
 void shuffleImage(){
+    // The Shuffle image filter allows the user to rearrange the image four quarters in the order he want .
     unsigned char shuffledImage[SIZE][SIZE];
 
     string userShuffle ;
     cout << "Please enter your shuffle order:";
     cin >> userShuffle;
-
+       
+       // check if the shuffle order user entered is valid or not .
     while (!isShuffleValid(userShuffle) && userShuffle.length() != 4){
         cout << "\nInvalid shuffle order, please re-enter a valid one :\n";
+        cin >> userShuffle;
 
     }
 
