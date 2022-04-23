@@ -77,6 +77,13 @@ void rotateImage(){
     int rotationChoice = 1 ;
     cout << "Press 1 for 90 degree rotation\nPress 2 for 180 degree rotation\nPress 3 for 270 degree rotation";
     cin >> rotationChoice;
+       
+    while (rotationChoice < 1 || rotationChoice > 3){
+           
+           cout << "\nInvalid input, please re-enter a valid one :\n";
+           cin >> rotationChoice;
+    }     
+       
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             switch(rotationChoice) {
@@ -153,9 +160,14 @@ void enlargeImage() {
 
     int enlargeChoice = 1 ;
     cout << "\nWhich quarter to enlarge 1, 2, 3 or 4?\n";
-
-
     cin >> enlargeChoice;
+       
+    while (enlargeChoice < 1 || enlargeChoice > 4){
+           
+           cout << "\nInvalid input, please re-enter a valid one :\n";
+           cin >> enlargeChoice;
+    }   
+
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             switch(enlargeChoice) {
