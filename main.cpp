@@ -1,8 +1,8 @@
 /*
-        FCI – Programming 1 – 2022 - Assignment 3
+       FCI – Programming 1 – 2022 - Assignment 3
 
-        Program Name: xxxxxx.cpp
-        Last Modification Date: xx/xx/xxxx
+        Program Name: CS112-2022-2nd-S9-20210590-20211071-20211074-A3-FULL.cpp
+        Last Modification Date: 23/04/2022
 
         Author1 : Abdullah Ibrahim  ID : 20210590
         Author2 : Kareem Magdy      ID : 20211071
@@ -10,20 +10,37 @@
 
         Teaching Assistant: Eng. Afaf Abdelmonem
 
-        Purpose:..........
+        Purpose: Gray-scale image processor allows you to load an image and
+                 apply some filters or changes to it, then save it again.
 */
 
 #include <iostream>
 #include <cstring>
+#include <cmath>
 #include "bmplib.cpp"
 #include "bmplib.h"
 #include<cmath>
 
+using namespace std;
 unsigned char image[SIZE][SIZE];
 
-void loadImage ();
-void filterChoice();
-void saveImage ();
+void loadImage ();  // To load the image from the program file path
+void filterChoice();// Makes the user choose which filter to apply to his image
+void saveImage ();  // To save the edited image to the program file path
+// All 12 filters:
+void BW_filter();
+void flipImage();
+void detect_edges();
+void mirror();
+void shrink();
+void blur();
+void shuffleImage();
+void enlargeImage();
+void merge();
+void darken_or_lighten() ;
+void rotateImage();
+void invertFilter();
+
 
 int main() {
     loadImage();
@@ -54,6 +71,7 @@ void loadImage () {
         }
     }
 }
+
 void rotateImage(){
     unsigned char newImage[SIZE][SIZE];
     int rotationChoice = 1 ;
@@ -87,6 +105,10 @@ void rotateImage(){
 }
 
 void BW_filter(){
+    //This filter turns a Gray-scale image to a 2 shades image (black and white)
+    //white colored pixel = 255
+    //black colored pixel = 0
+
     int counter = 0 ;
     int grayAvg;
 
@@ -100,8 +122,8 @@ void BW_filter(){
 
     grayAvg = counter / (SIZE * SIZE) ;
 
-// every color above average will be White (  255 )
-// every color under average will be Black (   0  )
+// every color above average will be White ( 255 )
+// every color under average will be Black ( 0 )
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             if (image[i][j] > grayAvg){
@@ -276,20 +298,20 @@ void shuffleImage(){
 
 }
 
-// Filter to flip the image Vertically or Horizontally
 void flipImage(){
+    //This filter allows the user to flip the image
+    //horizontally or vertically, as if it is reflected on mirror
     string type_of_flip;
     unsigned char clone[SIZE][SIZE]; //2D array that has the same size as the image
 
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-
-            clone[i][j] = image[i][j]; //copying the image pixels values into "clone" 2D array
-
+            //copying the image pixels values into "clone" 2D array
+            clone[i][j] = image[i][j];
         }
     }
 
-    cout << "\nFlip (H) horizontally or (V) vertically ?\n";
+    cout << "\nFlip (H)orizontally or (V)ertically ?\n";
     cin >> type_of_flip; // Take the type of the flip from user
     while (true) {
         if (type_of_flip == "h"||type_of_flip == "H") {
@@ -315,6 +337,7 @@ void flipImage(){
         break; //breaks the biggest loop after flipping the image vertically
         }
         else{
+            //if the user did not enter (H or V) it asks him to re-enter type_of_flip again
             cout << "invalid input! please enter H or V..." << endl;
             cin >> type_of_flip;
         }
@@ -323,17 +346,26 @@ void flipImage(){
 }
 
 void detect_edges(){
-    BW_filter();
+    //This function finds the edges of the drawings in the image and turns the
+    //image into a skeleton version of the original as if it is drawn with pencil
+    //without coloring (black and white version but only edges are black colored)
+
+    BW_filter(); //turn the image into Black and White Image
     unsigned char clone[SIZE][SIZE]; //2D array that has the same size as the image
 
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            clone[i][j] = image[i][j]; //copying the image pixels values into "clone" 2D array
+            //copying the image pixels values into "clone" 2D array
+            clone[i][j] = image[i][j];
         }
     }
 
     for (int i = 1; i < 255; i++) {
         for (int j = 1; j < 255; j++) {
+
+            //In the B&W version, this if statement checks if all pixels around the
+            //current pixel are black pixels, and if so
+            //it turns the current pixel into a white colored pixel
             if (clone[i-1][j-1]==0 and clone[i-1][j]==0 and clone[i-1][j+1]==0
             and clone[i][j-1]==0 and clone[i][j+1]==0
             and clone[i+1][j-1]==0 and clone[i+1][j]==0 and clone[i+1][j+1]==0){
@@ -345,6 +377,8 @@ void detect_edges(){
 }
 
 void mirror(){
+    //This filter mirrors any half of the image
+    //Left half, Right half, Upper half, or Lower half.
 
     string type_of_mirror;
     cout<< "\nPlease Choose type of mirror to apply to your image\n"
@@ -355,39 +389,44 @@ void mirror(){
     cin >> type_of_mirror;
 
     while (true) {
-        if (type_of_mirror == "1") {
+        if (type_of_mirror == "1") { //Left Half Mirror
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 0; j < 128; j++) {
+                    //copying pixels of the left half into the right half in a flipped order
                     image[i][255-j] = image[i][j];
                 }
             }
             break;
         }
-        else if (type_of_mirror == "2"){
+        else if (type_of_mirror == "2"){ //Right Half Mirror
             for (int i = 0; i < SIZE; i++) {
                 for (int j = 128; j < 256; j++) {
+                    //copying pixels of the right half into the left half in a flipped order
                     image[i][255-j] = image[i][j];
                 }
             }
             break;
         }
-        else if (type_of_mirror == "3"){
+        else if (type_of_mirror == "3"){ //Upper Half Mirror
             for (int i = 0; i < 128; i++) {
                 for (int j = 0; j < SIZE; j++) {
+                    //copying pixels of the upper half into the lower half in a flipped order
                     image[255-i][j] = image[i][j];
                 }
             }
             break;
         }
-        else if (type_of_mirror == "4"){
+        else if (type_of_mirror == "4"){ //Lower Half Mirror
             for (int i = 128; i < 256; i++) {
                 for (int j = 0; j < SIZE; j++) {
+                    //copying pixels of the lower half into the upper half in a flipped order
                     image[255-i][j] = image[i][j];
                 }
             }
             break;
         }
         else{
+            //if the user did not enter (1 - 4) it asks him to re-enter type_of_mirror again
             cout << "\n invalid input... please try again" << endl;
             cin >> type_of_mirror;
         }
@@ -442,7 +481,7 @@ void merge() {
     }
 }
 
-void blurfilter(){
+void blur(){
     long long avg=0;
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
@@ -574,7 +613,7 @@ void filterChoice(){
                     validInput = true;
                     break;
                 case 9 :
-                    blurfilter();
+                    blur();
                     validInput = true;
                     break;
                 case 10 :

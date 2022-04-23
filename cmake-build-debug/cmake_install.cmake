@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project2
+# Install script for directory: C:/Users/20102/Desktop/Assignment3/My Team/NEW GRAY
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/20102/Desktop/Assignment3/My Team/Image-Proccesing-Project2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/20102/Desktop/Assignment3/My Team/NEW GRAY/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
