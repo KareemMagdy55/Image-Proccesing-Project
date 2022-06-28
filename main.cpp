@@ -1,15 +1,4 @@
 /*
-       FCI – Programming 1 – 2022 - Assignment 3
-
-        Program Name: CS112-2022-2nd-S9-20210590-20211071-20211074-A3-FULL.cpp
-        Last Modification Date: 23/04/2022
-
-        Author1 : Abdullah Ibrahim  ID : 20210590
-        Author2 : Kareem Magdy      ID : 20211071
-        Author3 : Mohammed Reyad    ID : 20211074
-
-        Teaching Assistant: Eng. Afaf Abdelmonem
-
         Purpose: Gray-scale image processor allows you to load an image and
                  apply some filters or changes to it, then save it again.
 */
